@@ -1,14 +1,14 @@
 package middleware
 
 import (
-	"github.com/Kingpant/golang-template/internal/interface/response"
+	"github.com/Kingpant/golang-clean-architecture-template/internal/interface/response"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )
 
 var validate = validator.New()
 
-const ValidatedBody = "validatedBody"
+const ValidatedBodyKey = "validatedBody"
 
 func ValidateBody[T any]() fiber.Handler {
 	return func(c *fiber.Ctx) error {
@@ -22,7 +22,7 @@ func ValidateBody[T any]() fiber.Handler {
 		}
 
 		// Set into locals for handler to use
-		c.Locals(ValidatedBody, body)
+		c.Locals(ValidatedBodyKey, body)
 		return c.Next()
 	}
 }

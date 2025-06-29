@@ -1,7 +1,7 @@
 package logger
 
 import (
-	"github.com/Kingpant/golang-template/internal/infrastructure/config"
+	"github.com/Kingpant/golang-clean-architecture-template/internal/infrastructure/config"
 	"go.uber.org/zap"
 )
 

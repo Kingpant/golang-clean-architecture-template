@@ -3,10 +3,11 @@ package repository
 import (
 	"context"
 
-	"github.com/Kingpant/golang-template/internal/domain/model"
+	"github.com/Kingpant/golang-clean-architecture-template/internal/domain/model"
 )
 
 type UserRepository interface {
-	GetAll(ctx context.Context) ([]*model.User, error)
+	FindAll(ctx context.Context) ([]*model.User, error)
 	Create(ctx context.Context, user *model.User) (string, error)
+	UpdateOneEmailByID(ctx context.Context, id, email string) error
 }

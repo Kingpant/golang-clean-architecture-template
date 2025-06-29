@@ -3,14 +3,15 @@ package usecase
 import (
 	"context"
 
-	"github.com/Kingpant/golang-template/internal/domain/model"
-	"github.com/Kingpant/golang-template/internal/domain/repository"
+	"github.com/Kingpant/golang-clean-architecture-template/internal/domain/model"
+	"github.com/Kingpant/golang-clean-architecture-template/internal/domain/repository"
 	"go.uber.org/zap"
 )
 
 type UserUsecase interface {
 	GetUsers(ctx context.Context) ([]string, error)
 	CreateUser(ctx context.Context, name, email string) (string, error)
+	UpdateUserEmail(ctx context.Context, id string, email string) error
 }
 
 type userUsecase struct {
@@ -27,7 +28,7 @@ func NewUserUseCase(userRepo repository.UserRepository, logger *zap.SugaredLogge
 }
 
 func (u *userUsecase) GetUsers(ctx context.Context) ([]string, error) {
-	userModels, err := u.userRepo.GetAll(ctx)
+	userModels, err := u.userRepo.FindAll(ctx)
 	if err != nil {
 		u.logger.Errorw("failed to get users", "error", err)
 		return nil, err
@@ -54,4 +55,14 @@ func (u *userUsecase) CreateUser(ctx context.Context, name, email string) (strin
 	}
 
 	return id, nil
+}
+
+func (u *userUsecase) UpdateUserEmail(ctx context.Context, id string, email string) error {
+	err := u.userRepo.UpdateOneEmailByID(ctx, id, email)
+	if err != nil {
+		u.logger.Errorw("failed to update user", "error", err)
+		return err
+	}
+
+	return nil
 }

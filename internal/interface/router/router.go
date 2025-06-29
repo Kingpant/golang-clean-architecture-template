@@ -3,7 +3,11 @@ package router
 import (
 	"fmt"
 
+	"github.com/Kingpant/golang-clean-architecture-template/internal/infrastructure/config"
 	"github.com/gofiber/fiber/v2"
+	fiberSwagger "github.com/swaggo/fiber-swagger"
+
+	_ "github.com/Kingpant/golang-clean-architecture-template/docs"
 )
 
 type Option func(*fiberRouter)
@@ -53,16 +57,18 @@ func WithPingerWithContextMethod(p PingerWithContextMethod) Option {
 }
 
 type fiberRouter struct {
-	app *fiber.App
+	app    *fiber.App
+	appEnv config.AppEnvType
 
 	healthChecks []HealthCheckFunc
 }
 
-func NewFiberRouter(opt ...Option) *fiberRouter {
+func NewFiberRouter(appEnv config.AppEnvType, opt ...Option) *fiberRouter {
 	app := fiber.New()
 
 	fr := &fiberRouter{
-		app: app,
+		app:    app,
+		appEnv: appEnv,
 	}
 
 	for _, o := range opt {
@@ -70,6 +76,7 @@ func NewFiberRouter(opt ...Option) *fiberRouter {
 	}
 
 	fr.setupHealthCheck()
+	fr.registerSwagger()
 
 	return fr
 }
@@ -96,4 +103,10 @@ func (fr *fiberRouter) setupHealthCheck() {
 
 		return c.SendString("OK")
 	})
+}
+
+func (fr *fiberRouter) registerSwagger() {
+	if fr.appEnv != config.AppEnvProduction {
+		fr.app.Get("/swagger/*", fiberSwagger.WrapHandler)
+	}
 }

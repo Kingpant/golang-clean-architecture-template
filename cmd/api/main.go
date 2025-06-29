@@ -5,15 +5,19 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/Kingpant/golang-template/internal/infrastructure/config"
-	"github.com/Kingpant/golang-template/internal/infrastructure/db"
-	"github.com/Kingpant/golang-template/internal/infrastructure/logger"
-	"github.com/Kingpant/golang-template/internal/infrastructure/repository"
-	"github.com/Kingpant/golang-template/internal/interface/handler"
-	"github.com/Kingpant/golang-template/internal/interface/router"
-	"github.com/Kingpant/golang-template/internal/usecase"
+	"github.com/Kingpant/golang-clean-architecture-template/internal/infrastructure/config"
+	"github.com/Kingpant/golang-clean-architecture-template/internal/infrastructure/db"
+	"github.com/Kingpant/golang-clean-architecture-template/internal/infrastructure/logger"
+	"github.com/Kingpant/golang-clean-architecture-template/internal/infrastructure/repository"
+	"github.com/Kingpant/golang-clean-architecture-template/internal/interface/handler"
+	"github.com/Kingpant/golang-clean-architecture-template/internal/interface/router"
+	"github.com/Kingpant/golang-clean-architecture-template/internal/usecase"
 )
 
+// @title			template API
+// @version		1.0
+// @description	This is the API for the template application.
+// @BasePath		/
 func main() {
 	cfg, loadConfigErr := config.LoadAPIConfig()
 	if loadConfigErr != nil {
@@ -41,7 +45,7 @@ func main() {
 	// Initialize Handlers
 	userHandler := handler.NewUserHandler(userUseCase)
 
-	f := router.NewFiberRouter(router.WithPinger(bunDb))
+	f := router.NewFiberRouter(cfg.AppEnv, router.WithPinger(bunDb))
 	router.RegisterUserRouter(f.App(), userHandler)
 
 	go func() {

@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/Kingpant/golang-template/internal/infrastructure/config"
+	"github.com/Kingpant/golang-clean-architecture-template/internal/infrastructure/config"
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dialect/pgdialect"
 	"github.com/uptrace/bun/driver/pgdriver"

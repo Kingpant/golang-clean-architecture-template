@@ -1,0 +1,132 @@
+basePath: /
+definitions:
+  github_com_Kingpant_golang-template_internal_interface_request.CreateUserRequest:
+    properties:
+      email:
+        type: string
+      name:
+        minLength: 2
+        type: string
+    required:
+    - email
+    - name
+    type: object
+  github_com_Kingpant_golang-template_internal_interface_request.UpdateUserEmailRequest:
+    properties:
+      email:
+        type: string
+    required:
+    - email
+    type: object
+  github_com_Kingpant_golang-template_internal_interface_response.BaseResponse:
+    properties:
+      data: {}
+      ok:
+        type: boolean
+    type: object
+  github_com_Kingpant_golang-template_internal_interface_response.CreateUserResponse:
+    properties:
+      user_id:
+        type: string
+    type: object
+  github_com_Kingpant_golang-template_internal_interface_response.ErrorResponse:
+    properties:
+      error:
+        type: string
+      ok:
+        type: boolean
+    type: object
+  github_com_Kingpant_golang-template_internal_interface_response.GetUsersResponse:
+    properties:
+      users:
+        items:
+          type: string
+        type: array
+    type: object
+info:
+  contact: {}
+  description: This is the API for the template application.
+  title: template API
+  version: "1.0"
+paths:
+  /user:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_Kingpant_golang-template_internal_interface_response.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_Kingpant_golang-template_internal_interface_response.GetUsersResponse'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_Kingpant_golang-template_internal_interface_response.ErrorResponse'
+      summary: Get all users
+      tags:
+      - User
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Info
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_Kingpant_golang-template_internal_interface_request.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/github_com_Kingpant_golang-template_internal_interface_response.BaseResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/github_com_Kingpant_golang-template_internal_interface_response.CreateUserResponse'
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_Kingpant_golang-template_internal_interface_response.ErrorResponse'
+      summary: Create a new user
+      tags:
+      - User
+  /user/email/{id}:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: User Email Info
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_Kingpant_golang-template_internal_interface_request.UpdateUserEmailRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_Kingpant_golang-template_internal_interface_response.BaseResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_Kingpant_golang-template_internal_interface_response.ErrorResponse'
+      summary: Update user email
+      tags:
+      - User
+swagger: "2.0"
