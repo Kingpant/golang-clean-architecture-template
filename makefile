@@ -1,4 +1,4 @@
-.PHONY: swag swag-fmt swag-init
+.PHONY: swag swag-fmt swag-init mocks
 
 # Format all swag comments
 swag-fmt:
@@ -10,3 +10,7 @@ swag-init:
 
 # Run both
 swag: swag-fmt swag-init
+
+# Generate mocks for user repository
+mocks: 
+	go generate ./...
