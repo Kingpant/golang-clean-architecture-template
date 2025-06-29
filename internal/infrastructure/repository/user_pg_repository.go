@@ -30,6 +30,12 @@ func (r *UserPGRepository) Create(ctx context.Context, user *model.User) (string
 
 func (r *UserPGRepository) UpdateOneEmailByID(ctx context.Context, id, email string) error {
 	model := new(model.User)
-	_, err := r.db.NewUpdate().Model(model).Where("id = ?", id).Set("email = ?", email).Set("updated_at = NOW()").Where("id = ?", id).Exec(ctx)
+	_, err := r.db.NewUpdate().
+		Model(model).
+		Where("id = ?", id).
+		Set("email = ?", email).
+		Set("updated_at = NOW()").
+		Where("id = ?", id).
+		Exec(ctx)
 	return err
 }

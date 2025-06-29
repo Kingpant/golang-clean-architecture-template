@@ -1,6 +1,15 @@
 {
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "[json]": {
+        "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": "\\.go$",
+                "cmd": "golines ${file} -w"
+            }
+        ]
     }
 }
