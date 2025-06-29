@@ -2,9 +2,13 @@ package model
 
 import (
 	"time"
+
+	"github.com/uptrace/bun"
 )
 
 type User struct {
+	bun.BaseModel `bun:"table:users"`
+
 	ID        string    `bun:"id,pk,type:uuid,default:gen_random_uuid()"`
 	Name      string    `bun:"name,notnull"`
 	Email     string    `bun:"email,notnull"`
