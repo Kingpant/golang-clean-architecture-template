@@ -7,9 +7,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Kingpant/tipster/cmd/bun/migrations"
-	"github.com/Kingpant/tipster/internal/infrastructure/config"
-	"github.com/Kingpant/tipster/internal/infrastructure/db"
+	"github.com/Kingpant/golang-template/cmd/bun/migrations"
+	"github.com/Kingpant/golang-template/internal/infrastructure/config"
+	"github.com/Kingpant/golang-template/internal/infrastructure/db"
 	"github.com/uptrace/bun/migrate"
 	"github.com/urfave/cli/v2"
 )

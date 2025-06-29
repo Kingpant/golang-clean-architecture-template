@@ -3,8 +3,8 @@ package usecase
 import (
 	"context"
 
-	"github.com/Kingpant/tipster/internal/domain/model"
-	"github.com/Kingpant/tipster/internal/domain/repository"
+	"github.com/Kingpant/golang-template/internal/domain/model"
+	"github.com/Kingpant/golang-template/internal/domain/repository"
 	"go.uber.org/zap"
 )
 

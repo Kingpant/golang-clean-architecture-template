@@ -1,4 +1,4 @@
-module github.com/Kingpant/tipster
+module github.com/Kingpant/golang-template
 
 go 1.24.4
 

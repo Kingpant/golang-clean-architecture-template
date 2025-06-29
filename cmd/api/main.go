@@ -5,13 +5,13 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/Kingpant/tipster/internal/infrastructure/config"
-	"github.com/Kingpant/tipster/internal/infrastructure/db"
-	"github.com/Kingpant/tipster/internal/infrastructure/logger"
-	"github.com/Kingpant/tipster/internal/infrastructure/repository"
-	"github.com/Kingpant/tipster/internal/interface/handler"
-	"github.com/Kingpant/tipster/internal/interface/router"
-	"github.com/Kingpant/tipster/internal/usecase"
+	"github.com/Kingpant/golang-template/internal/infrastructure/config"
+	"github.com/Kingpant/golang-template/internal/infrastructure/db"
+	"github.com/Kingpant/golang-template/internal/infrastructure/logger"
+	"github.com/Kingpant/golang-template/internal/infrastructure/repository"
+	"github.com/Kingpant/golang-template/internal/interface/handler"
+	"github.com/Kingpant/golang-template/internal/interface/router"
+	"github.com/Kingpant/golang-template/internal/usecase"
 )
 
 func main() {

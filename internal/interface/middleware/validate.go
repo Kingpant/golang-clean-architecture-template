@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"github.com/Kingpant/tipster/internal/interface/response"
+	"github.com/Kingpant/golang-template/internal/interface/response"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )

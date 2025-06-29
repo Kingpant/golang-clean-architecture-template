@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/Kingpant/tipster/internal/domain/model"
+	"github.com/Kingpant/golang-template/internal/domain/model"
 	"github.com/uptrace/bun"
 )
 

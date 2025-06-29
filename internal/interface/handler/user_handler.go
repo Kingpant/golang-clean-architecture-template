@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"github.com/Kingpant/tipster/internal/interface/request"
-	"github.com/Kingpant/tipster/internal/interface/response"
-	"github.com/Kingpant/tipster/internal/usecase"
+	"github.com/Kingpant/golang-template/internal/interface/request"
+	"github.com/Kingpant/golang-template/internal/interface/response"
+	"github.com/Kingpant/golang-template/internal/usecase"
 	"github.com/gofiber/fiber/v2"
 )
 
