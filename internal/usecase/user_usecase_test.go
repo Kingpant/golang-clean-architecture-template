@@ -82,15 +82,15 @@ func Test_userUsecase_CreateUser(t *testing.T) {
 	// Mock user repository
 	ctrl := gomock.NewController(t)
 	mockUserRepo := mocks.NewMockUserRepository(ctrl)
-	mockUserRepo.EXPECT().Create(gomock.Any(), &model.User{
-		Name:  "Alice",
-		Email: "alice@example.com",
-	}).Return("12345", nil).Times(1)
+	mockUserRepo.EXPECT().
+		Create(gomock.Any(), "Alice", "alice@example.com").
+		Return("12345", nil).
+		Times(1)
 
-	mockUserRepo.EXPECT().Create(gomock.Any(), &model.User{
-		Name:  "Bob",
-		Email: "bob@example.com",
-	}).Return("", errors.New("user already exists")).Times(1)
+	mockUserRepo.EXPECT().
+		Create(gomock.Any(), "Bob", "bob@example.com").
+		Return("", errors.New("user already exists")).
+		Times(1)
 
 	tests := []struct {
 		name    string

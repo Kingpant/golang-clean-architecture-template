@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/Kingpant/golang-clean-architecture-template/internal/domain/model"
+	dbmodel "github.com/Kingpant/golang-clean-architecture-template/internal/infrastructure/db/model"
 	"github.com/uptrace/bun"
 )
 
@@ -16,20 +17,35 @@ func NewUserPGRepository(db *bun.DB) *UserPGRepository {
 }
 
 func (r *UserPGRepository) FindAll(ctx context.Context) ([]*model.User, error) {
-	var users []*model.User
+	var users []*dbmodel.User
 	if err := r.db.NewSelect().Model(&users).Scan(ctx); err != nil {
 		return nil, err
 	}
-	return users, nil
+
+	var usersModel []*model.User
+	for _, user := range users {
+		usersModel = append(usersModel, &model.User{
+			ID:    user.ID,
+			Name:  user.Name,
+			Email: user.Email,
+		})
+	}
+
+	return usersModel, nil
 }
 
-func (r *UserPGRepository) Create(ctx context.Context, user *model.User) (string, error) {
-	_, err := r.db.NewInsert().Model(user).Returning("id").Exec(ctx)
-	return user.ID, err
+func (r *UserPGRepository) Create(ctx context.Context, name, email string) (string, error) {
+	userModel := &dbmodel.User{
+		Name:  name,
+		Email: email,
+	}
+
+	_, err := r.db.NewInsert().Model(userModel).Returning("id").Exec(ctx)
+	return userModel.ID, err
 }
 
 func (r *UserPGRepository) UpdateOneEmailByID(ctx context.Context, id, email string) error {
-	model := new(model.User)
+	model := new(dbmodel.User)
 	_, err := r.db.NewUpdate().
 		Model(model).
 		Where("id = ?", id).

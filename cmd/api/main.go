@@ -7,8 +7,8 @@ import (
 
 	"github.com/Kingpant/golang-clean-architecture-template/internal/infrastructure/config"
 	"github.com/Kingpant/golang-clean-architecture-template/internal/infrastructure/db"
+	"github.com/Kingpant/golang-clean-architecture-template/internal/infrastructure/db/repository"
 	"github.com/Kingpant/golang-clean-architecture-template/internal/infrastructure/logger"
-	"github.com/Kingpant/golang-clean-architecture-template/internal/infrastructure/repository"
 	"github.com/Kingpant/golang-clean-architecture-template/internal/interface/handler"
 	"github.com/Kingpant/golang-clean-architecture-template/internal/interface/router"
 	"github.com/Kingpant/golang-clean-architecture-template/internal/usecase"

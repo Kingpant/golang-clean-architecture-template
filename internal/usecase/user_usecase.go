@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"errors"
 
 	"github.com/Kingpant/golang-clean-architecture-template/internal/domain/model"
 	"github.com/Kingpant/golang-clean-architecture-template/internal/domain/repository"
@@ -47,8 +48,12 @@ func (u *userUsecase) CreateUser(ctx context.Context, name, email string) (strin
 		Name:  name,
 		Email: email,
 	}
+	if !user.IsValidEmail() || !user.IsValidName() {
+		u.logger.Errorw("invalid user data", "name", name, "email", email)
+		return "", errors.New("invalid user data")
+	}
 
-	id, err := u.userRepo.Create(ctx, user)
+	id, err := u.userRepo.Create(ctx, name, email)
 	if err != nil {
 		u.logger.Errorw("failed to create user", "error", err)
 		return "", err

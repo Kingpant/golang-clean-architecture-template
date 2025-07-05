@@ -2,19 +2,13 @@ package model
 
 import (
 	"testing"
-	"time"
-
-	"github.com/uptrace/bun"
 )
 
 func TestUser_IsValidName(t *testing.T) {
 	type fields struct {
-		BaseModel bun.BaseModel
-		ID        string
-		Name      string
-		Email     string
-		CreatedAt time.Time
-		UpdatedAt time.Time
+		ID    string
+		Name  string
+		Email string
 	}
 	tests := []struct {
 		name   string
@@ -46,12 +40,9 @@ func TestUser_IsValidName(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			u := &User{
-				BaseModel: tt.fields.BaseModel,
-				ID:        tt.fields.ID,
-				Name:      tt.fields.Name,
-				Email:     tt.fields.Email,
-				CreatedAt: tt.fields.CreatedAt,
-				UpdatedAt: tt.fields.UpdatedAt,
+				ID:    tt.fields.ID,
+				Name:  tt.fields.Name,
+				Email: tt.fields.Email,
 			}
 			if got := u.IsValidName(); got != tt.want {
 				t.Errorf("User.IsValidName() = %v, want %v", got, tt.want)
@@ -62,12 +53,9 @@ func TestUser_IsValidName(t *testing.T) {
 
 func TestUser_IsValidEmail(t *testing.T) {
 	type fields struct {
-		BaseModel bun.BaseModel
-		ID        string
-		Name      string
-		Email     string
-		CreatedAt time.Time
-		UpdatedAt time.Time
+		ID    string
+		Name  string
+		Email string
 	}
 	tests := []struct {
 		name   string
@@ -99,12 +87,9 @@ func TestUser_IsValidEmail(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			u := &User{
-				BaseModel: tt.fields.BaseModel,
-				ID:        tt.fields.ID,
-				Name:      tt.fields.Name,
-				Email:     tt.fields.Email,
-				CreatedAt: tt.fields.CreatedAt,
-				UpdatedAt: tt.fields.UpdatedAt,
+				ID:    tt.fields.ID,
+				Name:  tt.fields.Name,
+				Email: tt.fields.Email,
 			}
 			if got := u.IsValidEmail(); got != tt.want {
 				t.Errorf("User.IsValidEmail() = %v, want %v", got, tt.want)
