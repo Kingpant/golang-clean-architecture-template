@@ -17,15 +17,15 @@ func NewUserPGRepository(db *bun.DB) *UserPGRepository {
 	return &UserPGRepository{db: db}
 }
 
-func (r *UserPGRepository) FindAll(ctx context.Context) ([]*model.User, error) {
+func (r *UserPGRepository) FindAll(ctx context.Context) ([]model.User, error) {
 	var users []*dbmodel.User
 	if err := r.db.NewSelect().Model(&users).Scan(ctx); err != nil {
 		return nil, err
 	}
 
-	var usersModel []*model.User
+	var usersModel []model.User
 	for _, user := range users {
-		usersModel = append(usersModel, &model.User{
+		usersModel = append(usersModel, model.User{
 			ID:    user.ID,
 			Name:  user.Name,
 			Email: user.Email,

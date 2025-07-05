@@ -156,7 +156,7 @@ func Test_userUsecase_GetUsers(t *testing.T) {
 	mockUserRepo := mocks.NewMockUserRepository(ctrl)
 	mockUserRepo.EXPECT().
 		FindAll(gomock.Any()).
-		Return([]*model.User{
+		Return([]model.User{
 			{ID: "1", Name: "Alice", Email: "alice@example.com"},
 			{ID: "2", Name: "Bob", Email: "bob@example.com"},
 		}, nil).

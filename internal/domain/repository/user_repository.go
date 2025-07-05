@@ -8,7 +8,7 @@ import (
 
 //go:generate mockgen -source=user_repository.go -destination=mocks/mock_user_repository.go -package=mocks
 type UserRepository interface {
-	FindAll(ctx context.Context) ([]*model.User, error)
+	FindAll(ctx context.Context) ([]model.User, error)
 	Create(ctx context.Context, name, email string) (string, error)
 	FindThenUpdateOneEmailByID(ctx context.Context, id, email string) error
 }

@@ -46,7 +46,7 @@ func (u *userUsecase) GetUsers(ctx context.Context) ([]string, []string, error) 
 }
 
 func (u *userUsecase) CreateUser(ctx context.Context, name, email string) (string, error) {
-	user := &model.User{
+	user := model.User{
 		Name:  name,
 		Email: email,
 	}
