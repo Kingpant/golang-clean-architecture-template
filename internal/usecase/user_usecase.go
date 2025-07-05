@@ -46,7 +46,7 @@ func (u *userUsecase) GetUsers(ctx context.Context) ([]string, []string, error) 
 }
 
 func (u *userUsecase) CreateUser(ctx context.Context, name, email string) (string, error) {
-	user := model.User{
+	user := &model.User{
 		Name:  name,
 		Email: email,
 	}
@@ -55,13 +55,13 @@ func (u *userUsecase) CreateUser(ctx context.Context, name, email string) (strin
 		return "", errors.New("invalid user data")
 	}
 
-	id, err := u.userRepo.Create(ctx, name, email)
+	err := u.userRepo.Create(ctx, user)
 	if err != nil {
 		u.logger.Errorw("failed to create user", "error", err)
 		return "", err
 	}
 
-	return id, nil
+	return user.ID, nil
 }
 
 func (u *userUsecase) UpdateUserEmail(ctx context.Context, id string, email string) error {

@@ -1,1 +1,3 @@
+DROP TABLE IF EXISTS user_logs;
+DROP TYPE IF EXISTS user_log_action;
 DROP TABLE IF EXISTS users;
