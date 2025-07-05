@@ -10,7 +10,7 @@ import (
 )
 
 type UserUsecase interface {
-	GetUsers(ctx context.Context) ([]string, error)
+	GetUsers(ctx context.Context) ([]string, []string, error)
 	CreateUser(ctx context.Context, name, email string) (string, error)
 	UpdateUserEmail(ctx context.Context, id string, email string) error
 }
@@ -28,19 +28,21 @@ func NewUserUseCase(userRepo repository.UserRepository, logger *zap.SugaredLogge
 	}
 }
 
-func (u *userUsecase) GetUsers(ctx context.Context) ([]string, error) {
+func (u *userUsecase) GetUsers(ctx context.Context) ([]string, []string, error) {
 	userModels, err := u.userRepo.FindAll(ctx)
 	if err != nil {
 		u.logger.Errorw("failed to get users", "error", err)
-		return nil, err
+		return nil, nil, err
 	}
 
 	users := []string{}
+	userIDs := []string{}
 	for _, user := range userModels {
 		users = append(users, user.Name)
+		userIDs = append(userIDs, user.ID)
 	}
 
-	return users, nil
+	return users, userIDs, nil
 }
 
 func (u *userUsecase) CreateUser(ctx context.Context, name, email string) (string, error) {
@@ -63,7 +65,7 @@ func (u *userUsecase) CreateUser(ctx context.Context, name, email string) (strin
 }
 
 func (u *userUsecase) UpdateUserEmail(ctx context.Context, id string, email string) error {
-	err := u.userRepo.UpdateOneEmailByID(ctx, id, email)
+	err := u.userRepo.FindThenUpdateOneEmailByID(ctx, id, email)
 	if err != nil {
 		u.logger.Errorw("failed to update user", "error", err)
 		return err

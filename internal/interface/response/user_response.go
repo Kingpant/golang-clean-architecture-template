@@ -1,7 +1,8 @@
 package response
 
 type GetUsersResponse struct {
-	Users []string `json:"users"`
+	UserIDs []string `json:"user_ids"`
+	Users   []string `json:"users"`
 }
 
 type CreateUserResponse struct {

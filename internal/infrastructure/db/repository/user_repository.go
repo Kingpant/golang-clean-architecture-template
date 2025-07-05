@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"database/sql"
 
 	"github.com/Kingpant/golang-clean-architecture-template/internal/domain/model"
 	dbmodel "github.com/Kingpant/golang-clean-architecture-template/internal/infrastructure/db/model"
@@ -44,14 +45,22 @@ func (r *UserPGRepository) Create(ctx context.Context, name, email string) (stri
 	return userModel.ID, err
 }
 
-func (r *UserPGRepository) UpdateOneEmailByID(ctx context.Context, id, email string) error {
-	model := new(dbmodel.User)
-	_, err := r.db.NewUpdate().
-		Model(model).
-		Where("id = ?", id).
-		Set("email = ?", email).
-		Set("updated_at = NOW()").
-		Where("id = ?", id).
-		Exec(ctx)
-	return err
+func (r *UserPGRepository) FindThenUpdateOneEmailByID(ctx context.Context, id, email string) error {
+	return r.db.RunInTx(
+		ctx,
+		&sql.TxOptions{Isolation: sql.LevelSerializable},
+		func(ctx context.Context, tx bun.Tx) error {
+			user := &dbmodel.User{ID: id}
+			if err := tx.NewSelect().Model(user).Where("id = ?", id).For("UPDATE").Scan(ctx); err != nil {
+				return err
+			}
+
+			user.Email = email
+			if _, err := tx.NewUpdate().Model(user).WherePK().Set("updated_at = NOW()").Exec(ctx); err != nil {
+				return err
+			}
+
+			return nil
+		},
+	)
 }

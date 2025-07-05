@@ -71,16 +71,16 @@ func (mr *MockUserRepositoryMockRecorder) FindAll(ctx any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindAll", reflect.TypeOf((*MockUserRepository)(nil).FindAll), ctx)
 }
 
-// UpdateOneEmailByID mocks base method.
-func (m *MockUserRepository) UpdateOneEmailByID(ctx context.Context, id, email string) error {
+// FindThenUpdateOneEmailByID mocks base method.
+func (m *MockUserRepository) FindThenUpdateOneEmailByID(ctx context.Context, id, email string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateOneEmailByID", ctx, id, email)
+	ret := m.ctrl.Call(m, "FindThenUpdateOneEmailByID", ctx, id, email)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// UpdateOneEmailByID indicates an expected call of UpdateOneEmailByID.
-func (mr *MockUserRepositoryMockRecorder) UpdateOneEmailByID(ctx, id, email any) *gomock.Call {
+// FindThenUpdateOneEmailByID indicates an expected call of FindThenUpdateOneEmailByID.
+func (mr *MockUserRepositoryMockRecorder) FindThenUpdateOneEmailByID(ctx, id, email any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateOneEmailByID", reflect.TypeOf((*MockUserRepository)(nil).UpdateOneEmailByID), ctx, id, email)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindThenUpdateOneEmailByID", reflect.TypeOf((*MockUserRepository)(nil).FindThenUpdateOneEmailByID), ctx, id, email)
 }

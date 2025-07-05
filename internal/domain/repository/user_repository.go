@@ -10,5 +10,5 @@ import (
 type UserRepository interface {
 	FindAll(ctx context.Context) ([]*model.User, error)
 	Create(ctx context.Context, name, email string) (string, error)
-	UpdateOneEmailByID(ctx context.Context, id, email string) error
+	FindThenUpdateOneEmailByID(ctx context.Context, id, email string) error
 }

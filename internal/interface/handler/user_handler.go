@@ -33,12 +33,12 @@ func NewUserHandler(userUseCase usecase.UserUsecase) *userHandler {
 //	@Failure	500	{object}	response.ErrorResponse
 //	@Router		/user [get]
 func (h *userHandler) GetUsers(c *fiber.Ctx) error {
-	users, getUsersErr := h.userUseCase.GetUsers(c.Context())
+	users, userIDs, getUsersErr := h.userUseCase.GetUsers(c.Context())
 	if getUsersErr != nil {
 		return response.JSONError(c, fiber.StatusInternalServerError, getUsersErr.Error())
 	}
 
-	return response.JSONOK(c, response.GetUsersResponse{Users: users})
+	return response.JSONOK(c, response.GetUsersResponse{Users: users, UserIDs: userIDs})
 }
 
 // CreateUser godoc
