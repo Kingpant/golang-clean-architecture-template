@@ -12,7 +12,11 @@ import (
 	"github.com/uptrace/bun/extra/bundebug"
 )
 
-func NewDB(appEnv config.AppEnvType, userName, password, host, database, schema string, ssl bool) *bun.DB {
+func NewDB(
+	appEnv config.AppEnvType,
+	userName, password, host, database, schema string,
+	ssl bool,
+) *bun.DB {
 	connectionUrl := url.URL{
 		Scheme: "postgres",
 		User:   url.UserPassword(userName, password),
